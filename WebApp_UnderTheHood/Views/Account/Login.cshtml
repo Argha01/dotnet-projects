@@ -1,0 +1,45 @@
+﻿@using Microsoft.JSInterop
+@model CredentialViewModel;
+@inject Func<ISample> factory;
+
+<div class="comntainer border" style="padding:20px;">
+    <form asp-action="Login" method="post">
+        <div class="text-danger" asp-validation-summary="All"></div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                <label asp-for="UserName"></label>
+            </div>
+            <div class="col-5">
+                <input type="text" asp-for="UserName" class="form-control" />
+                <span class="text-danger" asp-validation-for="UserName"></span>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                <label asp-for="Password"></label>
+            </div>
+            <div class="col-5">
+                <input type="password" asp-for="Password" class="form-control" />
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                <input type="checkbox" class="form-check-input" asp-for="RememberMe"  />
+                <label class="form-check-label" asp-for="RememberMe"></label>
+            </div>
+            <div class="col-5">
+                <input type="submit" class="btn btn-primary" value="Login"/>
+            </div>
+        </div>
+        @* <p class="m-4 bg-danger">@ViewBag.HashCode</p> *@
+    </form>
+    <button onclick="GetNewTime()" class="btn btn-primary">Get New Time</button>
+        <p id="Time" class="m-4 bg-danger"></p>
+</div>
+<script>
+    function GetNewTime(){
+        console.log(@Html.Raw(Json.Serialize(factory().CurrentTime)));
+        Time.innerText = @Html.Raw(Json.Serialize(factory().CurrentTime));
+    }
+</script>

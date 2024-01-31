@@ -1,0 +1,27 @@
+﻿@model EmailMFAViewModel
+
+<h1>Please Enter the Code from email</h1>
+<br/>
+<div class="comntainer border" style="padding:20px;">
+    <form  asp-action="TwoFactorSignIn" method="post">
+        <div class="text-danger" asp-validation-summary="All"></div>
+        <div class="form-group mb-3 row">
+            <div class="col-2">
+                <label asp-for="SecurityCode"></label>
+            </div>
+            <div class="col-5">
+                <input type="text" asp-for="SecurityCode" class="form-control" />
+                <span class="text-danger" asp-validation-for="SecurityCode"></span>
+            </div>
+        </div>
+        <div class="form-group mb-3 row">
+            <div class="col-2">
+                <input type="hidden" class="form-check-input" asp-for="RememberMe" />
+            </div>
+            <div class="col-2">
+                <input type="submit" class="btn btn-primary" value="Verify" />
+            </div>
+        </div>
+
+    </form>
+</div>

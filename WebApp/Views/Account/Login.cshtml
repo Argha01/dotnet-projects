@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Authentication
+@model CredentialViewModel;
+
+<div class="comntainer border" style="padding:20px;">
+    <form asp-controller="Account" asp-action="LoginPost" method="post">
+        <div class="text-danger" asp-validation-summary="All"></div>
+        <div class="form-group mb-3 row">
+            <div class="col-2">
+                <label asp-for="Email"></label>
+            </div>
+            <div class="col-5">
+                <input type="text" asp-for="Email" class="form-control" />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+        </div>
+        <div class="form-group mb-3 row">
+            <div class="col-2">
+                <label asp-for="Password"></label>
+            </div>
+            <div class="col-5">
+                <input type="password" asp-for="Password" class="form-control" />
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+        </div>
+        <div class="form-group mb-3 row">
+            <div class="col-2">
+                <input type="checkbox" class="form-check-input" asp-for="RememberMe" />
+                <label class="form-check-label" asp-for="RememberMe"></label>
+            </div>
+            <div class="col-2">
+                <input type="submit" class="btn btn-primary" value="Login" />
+            </div>
+            <div class="col-2">
+                <a class="btn btn-primary" href="/Register/RegisterUser">Sign Up</a>
+            </div>
+        </div>
+        <br />
+        <p>
+            Social Media Logins:
+            <div class="form-group">
+                @foreach (var provider in ViewBag.ExternalLoginSchemes as IEnumerable<AuthenticationScheme> ?? Enumerable.Empty<AuthenticationScheme>())
+                {
+                    <button type="submit" 
+                        asp-action="ExternalLogin" 
+                        name="provider" 
+                        value="@provider.Name"
+                        class="btn btn-success"
+                    >
+                        Login with @provider.DisplayName
+                    </button>
+                }
+
+            </div>
+        </p>
+    </form>
+</div>
